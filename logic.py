@@ -28,6 +28,23 @@ class Pokemon:
         else:
             return "Pikachu"
 
+    def get_img(self):
+        url = f'https://pokeapi.co/api/v2/pokemon/{self.pokemon_number}'
+        response = requests.get(url)
+        if response.status_code == 200:
+            picture = response.json()
+            return (picture['sprites']['other']['official-artwork']['front_default'])
+        else:
+            return "сегодня нет картинок ))"
+    def get_type(self):
+        url = f'https://pokeapi.co/api/v2/pokemon/{self.pokemon_number}'
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            return data['types'][0]['type']['name']
+        else:
+            return "unknown"
+
 
     # Метод класса для получения информации
     def info(self):
