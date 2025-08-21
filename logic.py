@@ -11,6 +11,8 @@ class Pokemon:
         self.pokemon_number = randint(1,1000)
         self.img = self.get_img()
         self.name = self.get_name()
+        self.type = self.get_type()
+        self.abilities = self.get_abilities()
 
         Pokemon.pokemons[pokemon_trainer] = self
 
@@ -45,14 +47,25 @@ class Pokemon:
         else:
             return "unknown"
 
-
+    def get_abilities(self):
+        url = f'https://pokeapi.co/api/v2/pokemon/{self.pokemon_number}'
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            return [a['ability']['name'] for a in data['abilities']]
+        else:
+            return []
     # Метод класса для получения информации
     def info(self):
-        return f"Имя твоего покеомона: {self.name}"
+        return (f"Имя твоего покемона: {self.name}\n"
+                f"Способности: {', '.join(self.abilities)}")
 
     # Метод класса для получения картинки покемона
     def show_img(self):
         return self.img
+    
+    def type_pokemon(self):
+        return f"Тип вашего покемона{self.type}"
 
 
 
