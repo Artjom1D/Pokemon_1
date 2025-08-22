@@ -4,16 +4,16 @@ import requests
 class Pokemon:
     pokemons = {}
     # Инициализация объекта (конструктор)
-    def __init__(self, pokemon_trainer, level=1, types=None, hungry=False):
+    def __init__(self, pokemon_trainer, level=None, types=None, hungry=False):
 
         self.pokemon_trainer = pokemon_trainer   
-        self.types = []
         self.pokemon_number = randint(1,1000)
+        self.types = []
+        self.type = self.get_type()
         self.img = self.get_img()
         self.name = self.get_name()
-        self.type = self.get_type()
         self.abilities = self.get_abilities()
-        self.level = level
+        self.level = 0
         self.hungry = hungry
         Pokemon.pokemons[pokemon_trainer] = self
     
@@ -35,6 +35,15 @@ class Pokemon:
             return (picture['sprites']['other']['official-artwork']['front_default'])
         else:
             return "сегодня нет картинок ))"
+    def get_type(self):
+        url = f'https://pokeapi.co/api/v2/pokemon/{self.pokemon_number}'
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            return data['types'][0]['type']['name']
+        else:
+            return "unknowm"
+
     def get_types(self):
         url = f'https://pokeapi.co/api/v2/pokemon/{self.pokemon_number}'
         response = requests.get(url)
@@ -54,7 +63,7 @@ class Pokemon:
             return []
 
     def feed(self):
-        if self.hungry:
+        if self.hungry == False:
             return f"Ваш покемон {self.name} сыт!"
         else:    
             self.hungry = False
@@ -69,7 +78,7 @@ class Pokemon:
             return f"Ваш покемон {self.name} играет и проголодался!"
 
     def rarity(self):
-        if self.types > 1 or self.types != "water" or "fire" or "wind" or "earth":
+        if len(self.types) >= 1 or self.types != "water" or "fire" or "wind" or "earth" or "normal":
             self.level += 3
             return "Редкий покемон. Ваш уровень повышен на 3!"
         else:
@@ -77,7 +86,7 @@ class Pokemon:
 
 
     def level_up(self):
-        return f"Уровень вашего покемона {self.name} повышен до {self.level}!"
+        return f"Уровень вашего покемона {self.name} {self.level}!"
     # Метод класса для получения информации
     def info(self):
         return (f"Имя твоего покемона: {self.name}\n"

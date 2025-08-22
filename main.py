@@ -11,12 +11,12 @@ def go(message):
         pokemon = Pokemon(message.from_user.username)
         bot.send_message(message.chat.id, pokemon.info())
         bot.send_message(message.chat.id, pokemon.type_pokemon())
-        bot.send_message(message.chat.id, "Вот твой покемон!")
-        bot.send_photo(message.chat.id, pokemon.show_img())
         bot.send_message(message.chat.id, pokemon.rarity())
         bot.send_message(message.chat.id, "Покормить покемона - /feed\n"
                                       "Поиграть с покемоном - /play\n"
-                                      "Узнать уровень покемона - /levelup\n")
+                                      "Узнать уровень покемона - /level\n")
+        bot.send_photo(message.chat.id, pokemon.show_img())
+        bot.send_message(message.chat.id, "Вот твой покемон!")
     else:
         bot.reply_to(message, "Ты уже создал себе покемона")
 
@@ -25,11 +25,18 @@ def feed(message):
     if message.from_user.username not in Pokemon.pokemons.keys():
         bot.send-message(message.chat.id, "Сначала создай покемона командой /go")
     else:
-        pokemon = Pokemon(message.from_user.username)
+        pokemon = Pokemon.pokemons[message.from_user.username]
         bot.send_message(message.chat.id, pokemon.feed())
 
+@bot.message_handler(commands=['play'])
+def play(message):
+    if message.from_user.username not in Pokemon.pokemons.keys():
+        bot.send_message(message.chat.id, "Сначала создай покемона командой /go")
+    else:
+        pokemon = Pokemon.pokemons[message.from_user.username]
+        bot.send_message(message.chat.id, pokemon.play())
 
-@bot.message_handler(commands=['levelup'])
+@bot.message_handler(commands=['level'])
 def lvlup(message):
     if message.from_user.username not in Pokemon.pokemons.keys():
         bot.send_message(message.chat.id, "Сначала создай покемона командой /go")
