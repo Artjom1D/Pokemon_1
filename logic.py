@@ -20,6 +20,9 @@ class Pokemon:
         Pokemon.pokemons[pokemon_trainer] = self
 
     # Метод для получения имени покемона через API
+    def class_name(self):
+        return self.__class__.__name__
+        
     def get_name(self):
         url = f'https://pokeapi.co/api/v2/pokemon/{self.pokemon_number}'
         response = requests.get(url)
@@ -82,7 +85,7 @@ class Pokemon:
     def rarity(self):
         if len(self.types) >= 1 or self.types != "water" or "fire" or "wind" or "earth" or "normal":
             self.level += 3
-            return "Редкий покемон. Ваш уровень повышен на 3!"
+            return "Редкий покемон!"
         else:
             return "Обычный покемон. Неудача, но в следующий раз повезет!"        
 
@@ -94,11 +97,10 @@ class Pokemon:
                 f"Способности: {', '.join(self.abilities)}\n"
                 f"Тип покемона: {', '.join(self.types)}\n"
                 f"HP: {self.hp}\n"
-                f"Attack: {self.attack}\n"
+                f"Attack: {self.power}\n"
+                f"{self.rarity()}\n"
                 f"Уровень: {self.level}\n"
                 f"Голоден: {'Да' if self.hungry == True else 'Нет'}\n"
-                f"{self.rarity()}\n"
-                f"{self.img}"
                 f"Класс покемона: {self.class_name()}\n")
     # Метод класса для получения картинки покемона
     def show_img(self):
@@ -106,15 +108,6 @@ class Pokemon:
     
     def type_pokemon(self):
         return f"Тип вашего покемона: {self.type}"
-    
-    def class_name(self):
-        chance = randint(1,5)
-        if chance == 1:
-            return Warrior(self.pokemon_trainer)
-        elif chance == 2: 
-            return Wizard(self.pokemon_trainer)
-        else:
-            return Pokemon(self.pokemon_trainer)
         
     def hospital(self):
         self.hp += 10
@@ -136,7 +129,7 @@ class Pokemon:
             return f"Победа @{self.pokemon_trainer} над @{enemy.pokemon_trainer}! "
         
 class Warrior(Pokemon):    
-    def init__(self, pokemon_trainer):
+    def __init__(self, pokemon_trainer):
         super().__init__(pokemon_trainer)
         self.power += 6
 
@@ -148,7 +141,7 @@ class Warrior(Pokemon):
         return результат + f"\nБоец применил супер-атаку силой:{супер_сила} "
 
 class Wizard(Pokemon):
-    def init__(self, pokemon_trainer):
+    def __init__(self, pokemon_trainer):
         super().__init__(pokemon_trainer)
         self.hp += 20
 
