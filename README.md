@@ -1,5 +1,7 @@
 # Pokemon Telegram Bot
 
+![Pokemon Example](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png)
+
 ## О проекте
 
 **Pokemon Telegram Bot** — это игровой бот для Telegram, написанный на Python.  
@@ -8,6 +10,8 @@
 Бот использует [PokeAPI](https://pokeapi.co/) для получения реальных данных о покемонах: имя, типы, способности, изображение.
 
 ## Возможности
+
+![Mewtwo](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png)
 
 - **Создать покемона** — команда `/go`
 - **Посмотреть информацию** — команда `/info`
@@ -19,6 +23,8 @@
 - **Справка** — команда `/help`
 
 ## Классы покемонов
+
+![Charizard](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png)
 
 - **Pokemon** — базовый класс
 - **Warrior** — боевой покемон с усиленной атакой
@@ -43,6 +49,8 @@
 
 ## Структура проекта
 
+![Bulbasaur](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png)
+
 - `main.py` — основной файл Telegram-бота
 - `logic.py` — игровая логика, классы покемонов
 - `config.py` — токен для Telegram-бота
@@ -57,3 +65,16 @@
 - `/hospital` — вылечить покемона
 - `/attack` — сразиться с другим (ответом на сообщение)
 - `/delete` — удалить своего покемона
+
+## Особенности
+
+- Каждый покемон уникален: его имя, тип, способности и изображение берутся из реальной базы данных PokeAPI.
+- Покемоны могут эволюционировать, повышать уровень, становиться сильнее и получать новые способности.
+- Взаимодействие между пользователями: можно сражаться с покемонами других игроков, отправлять атаки и проверять, кто сильнее.
+- Вся информация о вашем покемоне сохраняется до удаления — вы всегда можете вернуться и продолжить игру.
+
+## Для кого этот проект
+
+Этот бот отлично подойдёт для фанатов покемонов, желающих поиграть прямо в Telegram, а также для тех, кто изучает Python и хочет увидеть пример интеграции с внешним API и создания игровых механик.
+
+**Присоединяйтесь к игре и станьте лучшим тренером покемонов!**
